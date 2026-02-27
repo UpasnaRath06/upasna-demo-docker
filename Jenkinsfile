@@ -11,6 +11,8 @@ pipeline {
         HUB_BACKEND = "upasnarath06/upasna-demo-docker-backend"
         HUB_FRONTEND = "upasnarath06/upasna-demo-docker-frontend"
         HUB_AGENT = "upasnarath06/upasna-demo-docker-ai-agent"
+
+        DOCKER_CREDENTIALS_ID = "dockerhub-credentials"
     }
 
     stages {
@@ -30,10 +32,12 @@ pipeline {
 
         stage('Docker Hub Login') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_PASS')]) {
-                    bat '''
-                    echo %DOCKER_PASS% | docker login -u %DOCKER_HUB_USER% --password-stdin
-                    '''
+                withCredentials([usernamePassword(
+                    credentialsId: DOCKER_CREDENTIALS_ID,
+                    usernameVariable: 'USER',
+                    passwordVariable: 'PASS')]) {
+
+                    bat "docker login -u %USER% -p %PASS%"
                 }
             }
         }
