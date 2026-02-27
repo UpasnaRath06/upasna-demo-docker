@@ -3,9 +3,14 @@ pipeline {
 
     environment {
         DOCKER_HUB_USER = "upasnarath06"
-        IMAGE_BACKEND = "upasna-demo-docker-backend"
-        IMAGE_FRONTEND = "upasna-demo-docker-frontend"
-        IMAGE_AGENT = "upasna-demo-docker-ai-agent"
+
+        LOCAL_BACKEND = "upasna-demo-docker-backend"
+        LOCAL_FRONTEND = "upasna-demo-docker-frontend"
+        LOCAL_AGENT = "upasna-demo-docker-ai-agent"
+
+        HUB_BACKEND = "upasnarath06/upasna-demo-docker-backend"
+        HUB_FRONTEND = "upasnarath06/upasna-demo-docker-frontend"
+        HUB_AGENT = "upasnarath06/upasna-demo-docker-ai-agent"
     }
 
     stages {
@@ -36,9 +41,9 @@ pipeline {
         stage('Tag Images') {
             steps {
                 bat '''
-                docker tag upasna-demo-docker-backend %DOCKER_HUB_USER%/%IMAGE_BACKEND%:latest
-                docker tag upasna-demo-docker-frontend %DOCKER_HUB_USER%/%IMAGE_FRONTEND%:latest
-                docker tag upasna-demo-docker-ai-agent %DOCKER_HUB_USER%/%IMAGE_AGENT%:latest
+                docker tag %LOCAL_BACKEND% %HUB_BACKEND%:latest
+                docker tag %LOCAL_FRONTEND% %HUB_FRONTEND%:latest
+                docker tag %LOCAL_AGENT% %HUB_AGENT%:latest
                 '''
             }
         }
@@ -46,17 +51,17 @@ pipeline {
         stage('Push Images to Docker Hub') {
             steps {
                 bat '''
-                docker push %DOCKER_HUB_USER%/%IMAGE_BACKEND%:latest
-                docker push %DOCKER_HUB_USER%/%IMAGE_FRONTEND%:latest
-                docker push %DOCKER_HUB_USER%/%IMAGE_AGENT%:latest
+                docker push %HUB_BACKEND%:latest
+                docker push %HUB_FRONTEND%:latest
+                docker push %HUB_AGENT%:latest
                 '''
             }
         }
 
         stage('Deploy Containers') {
             steps {
-                bat 'docker-compose down'
-                bat 'docker-compose up -d'
+                bat 'docker compose down'
+                bat 'docker compose up -d'
             }
         }
     }
