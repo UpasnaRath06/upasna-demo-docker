@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         DOCKER_HUB_USER = "upasnarath06"
-        IMAGE_BACKEND = "mern-backend"
-        IMAGE_FRONTEND = "mern-frontend"
-        IMAGE_AGENT = "mern-ai-agent"
+        IMAGE_BACKEND = "upasna-demo-docker-backend"
+        IMAGE_FRONTEND = "upasna-demo-docker-frontend"
+        IMAGE_AGENT = "upasna-demo-docker-ai-agent"
     }
 
     stages {
@@ -13,13 +13,13 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/YOUR_GITHUB_USERNAME/mern-todo-devops.git'
+                url: 'https://github.com/UpasnaRath06/upasna-demo-docker.git'
             }
         }
 
         stage('Build Docker Images') {
             steps {
-                bat 'docker-compose build'
+                bat 'docker compose build'
             }
         }
 
@@ -36,9 +36,9 @@ pipeline {
         stage('Tag Images') {
             steps {
                 bat '''
-                docker tag mern-todo-devops_backend %DOCKER_HUB_USER%/%IMAGE_BACKEND%:latest
-                docker tag mern-todo-devops_frontend %DOCKER_HUB_USER%/%IMAGE_FRONTEND%:latest
-                docker tag mern-todo-devops_ai-agent %DOCKER_HUB_USER%/%IMAGE_AGENT%:latest
+                docker tag upasna-demo-docker-backend %DOCKER_HUB_USER%/%IMAGE_BACKEND%:latest
+                docker tag upasna-demo-docker-frontend %DOCKER_HUB_USER%/%IMAGE_FRONTEND%:latest
+                docker tag upasna-demo-docker-ai-agent %DOCKER_HUB_USER%/%IMAGE_AGENT%:latest
                 '''
             }
         }
