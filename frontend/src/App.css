@@ -38,7 +38,7 @@
 }
 
 
-todo-item small{
+.todo-item small{
   color: greenyellow;
   padding-left: 2px;
 }
