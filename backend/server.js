@@ -55,10 +55,18 @@ mongoose.connect(process.env.MONGO_URI)
 // ==================
 // 🔹 Todo Model
 // ==================
-const Todo = mongoose.model("Todo", {
+
+const TodoSchema = new mongoose.Schema(
+{
   title: String,
   completed: Boolean
-});
+},{
+  timestamps: true
+}
+);
+
+
+const Todo = mongoose.model("Todo", TodoSchema);
 
 // ==================
 // 🔹 Routes

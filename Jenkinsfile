@@ -11,7 +11,6 @@ pipeline {
         HUB_BACKEND = "upasnarath06/upasna-demo-docker-backend"
         HUB_FRONTEND = "upasnarath06/upasna-demo-docker-frontend"
         HUB_AGENT = "upasnarath06/upasna-demo-docker-ai-agent"
-
         DOCKER_CREDENTIALS_ID = "dockerhub-credentials"
     }
 
