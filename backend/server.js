@@ -62,8 +62,7 @@ const TodoSchema = new mongoose.Schema(
   completed: Boolean
 },{
   timestamps: true
-}
-);
+});
 
 
 const Todo = mongoose.model("Todo", TodoSchema);

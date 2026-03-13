@@ -11,6 +11,7 @@ pipeline {
         HUB_BACKEND = "upasnarath06/upasna-demo-docker-backend"
         HUB_FRONTEND = "upasnarath06/upasna-demo-docker-frontend"
         HUB_AGENT = "upasnarath06/upasna-demo-docker-ai-agent"
+
         DOCKER_CREDENTIALS_ID = "dockerhub-credentials"
     }
 
@@ -36,7 +37,7 @@ pipeline {
                     usernameVariable: 'USER',
                     passwordVariable: 'PASS')]) {
 
-                    bat "docker login -u %USER% -p %PASS%"
+                    bat "echo %PASS% | docker login -u %USER% --password-stdin"
                 }
             }
         }
@@ -51,7 +52,7 @@ pipeline {
             }
         }
 
-        stage('Push Images to Docker Hub') {
+        stage('Push Images') {
             steps {
                 bat '''
                 docker push %HUB_BACKEND%:latest
