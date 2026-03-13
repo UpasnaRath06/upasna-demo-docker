@@ -43,7 +43,7 @@ function App() {
           {todos.map((t) => (
             <div className="todo-item" key={t._id}>
               <span>{t.title}</span>
-              <small>Added at: {new Date(t.createdAt).toLocaleString()}</small>
+              <small>[{new Date(t.createdAt).toLocaleString()}]</small>
               
             </div>
           ))}
