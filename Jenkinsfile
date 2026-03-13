@@ -4,13 +4,15 @@ pipeline {
     environment {
         DOCKER_HUB_USER = "upasnarath06"
 
-        LOCAL_BACKEND = "upasna-demo-docker-backend"
-        LOCAL_FRONTEND = "upasna-demo-docker-frontend"
-        LOCAL_AGENT = "upasna-demo-docker-ai-agent"
+        // Correct local image names created by docker compose
+        LOCAL_BACKEND = "docker-project-pipeline-backend"
+        LOCAL_FRONTEND = "docker-project-pipeline-frontend"
+        LOCAL_AGENT = "docker-project-pipeline-ai-agent"
 
-        HUB_BACKEND = "upasnarath06/upasna-demo-docker-backend"
-        HUB_FRONTEND = "upasnarath06/upasna-demo-docker-frontend"
-        HUB_AGENT = "upasnarath06/upasna-demo-docker-ai-agent"
+        // Docker Hub repositories
+        HUB_BACKEND = "upasnarath06/docker-project-pipeline-backend"
+        HUB_FRONTEND = "upasnarath06/docker-project-pipeline-frontend"
+        HUB_AGENT = "upasnarath06/docker-project-pipeline-ai-agent"
 
         DOCKER_CREDENTIALS_ID = "dockerhub-credentials"
     }
@@ -27,6 +29,12 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 bat 'docker compose build'
+            }
+        }
+
+        stage('Check Built Images') {
+            steps {
+                bat 'docker images'
             }
         }
 
